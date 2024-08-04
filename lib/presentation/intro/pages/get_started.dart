@@ -4,7 +4,6 @@ import 'package:spoti/common/widgets/button/basic_app_button.dart';
 import 'package:spoti/core/configs/assets/app_images.dart';
 import 'package:spoti/core/configs/assets/app_vectors.dart';
 import 'package:spoti/core/configs/theme/app_colors.dart';
-import 'package:spoti/presentation/auth/pages/signup_signin.dart';
 import 'package:spoti/presentation/choose_mode/pages/choose_mode.dart';
 
 class GetStarted extends StatelessWidget {

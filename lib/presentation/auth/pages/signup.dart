@@ -6,7 +6,7 @@ import 'package:spoti/core/configs/assets/app_vectors.dart';
 import 'package:spoti/data/models/auth/create_user_req.dart';
 import 'package:spoti/domain/usecases/auth/sign_up.dart';
 import 'package:spoti/presentation/auth/pages/signin.dart';
-import 'package:spoti/presentation/root/pages/root.dart';
+import 'package:spoti/presentation/home/pages/home.dart';
 import 'package:spoti/service_locator.dart';
 
 class SignUpPage extends StatelessWidget {
@@ -64,7 +64,7 @@ class SignUpPage extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                const RootPage()),
+                                const HomePage()),
                         (route) => false);
                   });
                 },
@@ -120,7 +120,7 @@ class SignUpPage extends StatelessWidget {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => const SignInPage()));
+                      builder: (BuildContext context) => SignInPage()));
             },
             child: const Text('Sign In'))
       ],
