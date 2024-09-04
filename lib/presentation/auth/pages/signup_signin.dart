@@ -42,7 +42,7 @@ class SignupOrSigninPage extends StatelessWidget {
                         height: 55,
                       ),
                       const Text(
-                        'Enjoy Listening To Music',
+                        'Save in Dollars',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, fontSize: 26),
                       ),
@@ -50,7 +50,7 @@ class SignupOrSigninPage extends StatelessWidget {
                         height: 55,
                       ),
                       const Text(
-                        'Spotify is a proprietary Swedish audio streaming and media services provider ',
+                        'Manage your money in USD and EUR. Easily transfer to or from your local currency. ',
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 13),
                         textAlign: TextAlign.center,

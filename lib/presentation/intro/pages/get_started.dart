@@ -4,6 +4,7 @@ import 'package:spoti/common/widgets/button/basic_app_button.dart';
 import 'package:spoti/core/configs/assets/app_images.dart';
 import 'package:spoti/core/configs/assets/app_vectors.dart';
 import 'package:spoti/core/configs/theme/app_colors.dart';
+import 'package:spoti/presentation/auth/pages/signup_signin.dart';
 import 'package:spoti/presentation/choose_mode/pages/choose_mode.dart';
 
 class GetStarted extends StatelessWidget {
@@ -18,7 +19,8 @@ class GetStarted extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    fit: BoxFit.fill, image: AssetImage(AppImages.introBG))),
+                    fit: BoxFit.scaleDown,
+                    image: AssetImage(AppImages.introBG))),
           ),
           Container(
             color: Colors.black.withOpacity(0.15),
@@ -27,12 +29,12 @@ class GetStarted extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 40),
             child: Column(
               children: [
-                Align(
-                    alignment: Alignment.topCenter,
-                    child: SvgPicture.asset(AppVectors.logo)),
+                // Align(
+                //     alignment: Alignment.topCenter,
+                //     child: SvgPicture.asset(AppImages.logoPNG)),
                 const Spacer(),
                 const Text(
-                  'Enjoy Listening To Music',
+                  'Save in Dollars',
                   style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: Colors.white,
@@ -42,7 +44,7 @@ class GetStarted extends StatelessWidget {
                   height: 21,
                 ),
                 const Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sagittis enim purus sed phasellus. Cursus ornare id scelerisque aliquam.',
+                  'Manage your money in USD and EUR. Easily transfer to or from your local currency',
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: AppColors.grey,
@@ -58,7 +60,7 @@ class GetStarted extends StatelessWidget {
                         context,
                         MaterialPageRoute(
                             builder: (BuildContext context) =>
-                                const ChooseModePage()));
+                                const SignupOrSigninPage()));
                   },
                   title: 'Get Started',
                   textColor: Colors.white,

@@ -5,19 +5,31 @@ class BasicAppButton extends StatelessWidget {
   final String title;
   final double? height;
   final Color? textColor;
-  const BasicAppButton(
-      {super.key,
-      required this.onPressed,
-      required this.title,
-      this.height,
-      this.textColor});
+  final double borderRadius;
+
+  const BasicAppButton({
+    Key? key,
+    required this.onPressed,
+    required this.title,
+    this.height,
+    this.textColor,
+    this.borderRadius = 10.0, // Default border radius
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-            minimumSize: Size.fromHeight(height ?? 80)),
-        child: Text(style: TextStyle(color: textColor), title));
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        minimumSize: Size.fromHeight(height ?? 80),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+      ),
+      child: Text(
+        title,
+        style: TextStyle(color: textColor),
+      ),
+    );
   }
 }

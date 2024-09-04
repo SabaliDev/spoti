@@ -1,112 +1,105 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:spoti/common/helpers/is_dark_mode.dart';
 import 'package:spoti/common/widgets/appbar/app_bar.dart';
-import 'package:spoti/core/configs/assets/app_images.dart';
-import 'package:spoti/core/configs/assets/app_vectors.dart';
-import 'package:spoti/core/configs/theme/app_colors.dart';
-import 'package:spoti/presentation/home/widgets/news_songs.dart';
+import 'package:spoti/common/widgets/bottomnav/bottom_nav.dart';
+import 'package:spoti/presentation/deposit/pages/deposit.dart';
+import 'package:spoti/presentation/home/widgets/action_buttons.dart';
+import 'package:spoti/presentation/home/widgets/account_card.dart';
+import 'package:spoti/presentation/home/widgets/debit_card.dart';
+import 'package:spoti/presentation/home/widgets/savings.dart';
+import 'package:spoti/presentation/home/widgets/transactions.dart';
+import 'package:spoti/presentation/home/widgets/user_account.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    _tabController = TabController(length: 4, vsync: this);
-  }
+  final List<Transaction> transactions = [
+    Transaction(name: 'AirBnb', category: 'Housing', amount: 16.55),
+    Transaction(
+        name: 'Add your card or account',
+        category: 'Add unlimited cards and account',
+        amount: 0),
+    Transaction(name: 'McDonald\'s', category: 'Restaurant', amount: 1123.10),
+    Transaction(
+        name: 'Transfer', category: '*4243', amount: 1135.00, isIncome: true),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BasicAppbar(
+      appBar: const BasicAppbar(
         hideBack: true,
-        title: SvgPicture.asset(
-          AppVectors.logo,
-          height: 40,
-          width: 40,
-        ),
+        userInitials: 'PM',
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            _homeTopCard(),
-            _tabs(),
-            SizedBox(
-              height: 200,
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  const NewsSongs(),
-                  Container(),
-                  Container(),
-                  Container(),
-                ],
-              ),
-            ),
-          ],
-        ),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: [
+          _buildHomeContent(),
+          _buildCardContent(),
+          _buildSavingsContent(),
+          _buildAccountContent(),
+        ],
+      ),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
       ),
     );
   }
 
-  Widget _homeTopCard() {
-    return Center(
-      child: SizedBox(
-        height: 140,
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: SvgPicture.asset(AppVectors.homeTopCard),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Padding(
-                padding: const EdgeInsets.only(right: 60),
-                child: Image.asset(AppImages.homeArtist),
-              ),
-            )
-          ],
-        ),
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  Widget _buildHomeContent() {
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const AccountBalanceCard(
+            balance: '\$ 2,500.00',
+            accountNumber: '*****',
+          ),
+          const SizedBox(height: 40),
+          ActionButtons(
+            onAddPressed: () {
+              // Handle Add button press
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (BuildContext context) => AddDeposit()));
+            },
+            onSendPressed: () {
+              // Handle Send button press
+            },
+            onWithdrawPressed: () {
+              // Handle Withdraw button press
+            },
+          ),
+          const SizedBox(height: 40),
+          TransactionsWidget(transactions: transactions),
+        ],
       ),
     );
   }
 
-  Widget _tabs() {
-    return TabBar(
-      controller: _tabController,
-      labelColor: context.isDarkMode ? Colors.white : Colors.black,
-      indicatorColor: AppColors.primary,
-      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
-      tabs: const [
-        Text(
-          'News',
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
-        ),
-        Text(
-          'Videos',
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
-        ),
-        Text(
-          'Artists',
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
-        ),
-        Text(
-          'Podcasts',
-          style: TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
-        )
-      ],
-    );
+  Widget _buildCardContent() {
+    return DebitCardWidget();
+  }
+
+  Widget _buildSavingsContent() {
+    return SavingsWidget();
+  }
+
+  Widget _buildAccountContent() {
+    return AccountWidget();
   }
 }

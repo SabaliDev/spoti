@@ -9,6 +9,8 @@ import 'package:spoti/domain/usecases/auth/sign_up.dart';
 import 'package:spoti/domain/usecases/auth/signin.dart';
 import 'package:spoti/domain/usecases/song/get_news_songs.dart';
 
+import 'domain/usecases/song/get_play_list.dart';
+
 final sl = GetIt.instance;
 
 Future<void> intializeDependencies() async {
@@ -23,4 +25,7 @@ Future<void> intializeDependencies() async {
   sl.registerSingleton<SongFirebaseService>(SongFirebaseServiceImpl());
   sl.registerSingleton<SongsRepository>(SongRepositoryImpl());
   sl.registerSingleton<GetNewsSongsUseCase>(GetNewsSongsUseCase());
+
+  //Playlist service locator
+  sl.registerSingleton<GetPlayListUseCase>(GetPlayListUseCase());
 }
